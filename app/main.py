@@ -3,6 +3,7 @@
 from fastapi import FastAPI
 from .database import engine, Base
 
+
 app = FastAPI()
 
 # Инициализация базы данных

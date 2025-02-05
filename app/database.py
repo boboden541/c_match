@@ -3,12 +3,22 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 import os
+import logging
+
+# Логирование
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Определяем, какой .env файл используется
+environment = os.getenv('ENVIRONMENT')
+
+logger.info(f"Загружаем среду: {environment}")
 
 # Определяем, какой .env файл загружать
-if os.getenv('ENVIRONMENT') == 'docker':
-    load_dotenv(dotenv_path=".env.docker")  # Для Docker-среды
+if environment == 'docker':
+    a = load_dotenv(dotenv_path=".env.docker")  # Для Docker-среды
 else:
-    load_dotenv(dotenv_path=".env.local")  # Для локальной разработки
+    a = load_dotenv(dotenv_path=".env.local")  # Для локальной разработки
 
 # Загружаем параметры из переменных окружения
 POSTGRES_USER = os.getenv('POSTGRES_USER')
@@ -17,6 +27,13 @@ POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
 POSTGRES_DB = os.getenv('POSTGRES_DB')
 
+# Определяем, какие переменные собрали
+logger.info(f"Пользователь: {POSTGRES_USER}")
+logger.info(f"Пароль: {POSTGRES_PASSWORD}")
+logger.info(f"Хост: {POSTGRES_HOST}")
+logger.info(f"Порт: {POSTGRES_PORT}")
+logger.info(f"БД: {POSTGRES_DB}")
+
 # Формируем строку подключения к базе данных
 DATABASE_URL = (
     f"postgresql+psycopg2://"
@@ -24,6 +41,8 @@ DATABASE_URL = (
     f"{POSTGRES_HOST}:{POSTGRES_PORT}/"
     f"{POSTGRES_DB}"
 )
+
+logger.info(f"АЛОООООО!!!! Database URL: {DATABASE_URL}")
 
 # Создаем движок SQLAlchemy
 engine = create_engine(DATABASE_URL)

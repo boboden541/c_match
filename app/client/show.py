@@ -22,7 +22,6 @@ def create_show(show_data: dict, db: Session = next(get_db())):
         description=show_data.get("description"),
         source_type=show_data.get("source_type"),
         source_id=show_data.get("source_id"),
-        meme=show_data.get("meme")
     )
     db.add(new_show)
     db.commit()

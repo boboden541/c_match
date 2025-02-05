@@ -23,3 +23,4 @@ RUN pip install --no-cache-dir poetry=="$POETRY_VERSION" && poetry install
 COPY ./app ./app
 COPY ./alembic.ini ./
 COPY ./alembic ./alembic
+COPY .env.docker ./.env.docker

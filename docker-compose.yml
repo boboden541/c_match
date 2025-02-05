@@ -13,7 +13,7 @@ services:
   app:
     build: .
     environment:
-      - ENVIROMENT=docker
+      - ENVIRONMENT=docker
     depends_on:
       - db
     command: bash -c ".venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000"
