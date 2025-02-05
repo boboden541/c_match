@@ -1,0 +1,26 @@
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: match
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    environment:
+      - ENVIROMENT=docker
+    depends_on:
+      - db
+    command: bash -c ".venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    # command: bash -c ".venv/bin/alembic upgrade head && .venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000" #для автоматизации процесса миграции
+    #command: bash -c "sleep 10000"
+    ports:
+      - "8000:8000"
+
+volumes:
+  postgres_data:
