@@ -42,9 +42,9 @@ DATABASE_URL = (
     f"{POSTGRES_DB}"
 )
 
-logger.info(f"АЛОООООО!!!! Database URL: {DATABASE_URL}")
+logger.info(f"WELCOME ON BOARD, DEAR CAPTAIN! Your Database URL: {DATABASE_URL}")
 
-# Создаем движок SQLAlchemy
+# Создаем движок SQLAlchemys
 engine = create_engine(DATABASE_URL)
 
 # Создаем фабрику сессий
